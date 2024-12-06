@@ -18,15 +18,18 @@ library(plotly)
 library(htmlwidgets)
 
 # Load Data
-data <- readxl::read_xlsx("/Users/emmaschmidt/Desktop/Duke/Portfolio/Duke WBB 22-23 Off Pos Data.xlsx") %>%
+data <- readxl::read_xlsx("Duke WBB 22-23 Off Pos Data.xlsx") %>%
   mutate(
     ct_zone = as.character(ct_zone)
   )
 
+# Load in court sf object 
+court <- readRDS("court.rds")
+
 # Data Pre-Processing: Change variable names and filter out players with less than 40 attempts 
 data_p <- data %>%
   select(-notes, - `...24`) %>%
-  filter(fg_id != "ft",  player_id != 15 | 22 | 23 | 32 | 33) %>%
+  filter(fg_id != "ft") %>%
   mutate(player_id = case_when(player_id == 0 ~ "#0 Celeste Taylor",
                                player_id == 2 ~ "#2 Vanessa de Jesus",
                                player_id == 3 ~ "#3 Ashlon Jackson",
@@ -34,10 +37,16 @@ data_p <- data %>%
                                player_id == 5 ~ "#5 Taya Corosdale",
                                player_id == 11 ~ "#11 Jordyn Oliver",
                                player_id == 13 ~ "#13 Lee Volker",
+                               player_id == 15 ~ "#15 Emma Koable",
                                player_id == 21 ~ "#21 Kennedy Brown",
+                               player_id == 22 ~ "#22 Shay Bollin",
+                               player_id == 23 ~ "#23 Imani Lewis",
                                player_id == 24 ~ "#24 Reigan Richardson",
                                player_id == 30 ~ "#30 Shy Day-Wilson",
-                               player_id == 42 ~ "#42 Mia Heide"),
+                               player_id == 32 ~ "#32 Bo Shaffer",
+                               player_id == 33 ~ "#33 Jiselle Havas",
+                               player_id == 42 ~ "#42 Mia Heide",
+                               player_id == 45 ~ "#45 Emma Schmidt"),
          qtr_id = case_when(qtr_id == 1 ~ "1st Quarter",
                             qtr_id == 2 ~ "2nd Quarter",
                             qtr_id == 3 ~ "3rd Quarter",
@@ -65,10 +74,16 @@ data_t <- data %>%
                                player_id == 5 ~ "#5 Taya Corosdale",
                                player_id == 11 ~ "#11 Jordyn Oliver",
                                player_id == 13 ~ "#13 Lee Volker",
+                               player_id == 15 ~ "#15 Emma Koable",
                                player_id == 21 ~ "#21 Kennedy Brown",
+                               player_id == 22 ~ "#22 Shay Bollin",
+                               player_id == 23 ~ "#23 Imani Lewis",
                                player_id == 24 ~ "#24 Reigan Richardson",
                                player_id == 30 ~ "#30 Shy Day-Wilson",
+                               player_id == 32 ~ "#32 Bo Shaffer",
+                               player_id == 33 ~ "#33 Jiselle Havas",
                                player_id == 42 ~ "#42 Mia Heide",
+                               player_id == 45 ~ "#45 Emma Schmidt",
                                TRUE ~ "test"),
          qtr_id = case_when(qtr_id == 1 ~ "1st Quarter",
                             qtr_id == 2 ~ "2nd Quarter",
@@ -313,10 +328,9 @@ table3_2 <- data_t %>%
 
 
 table3_f <- rbind(table3, table3_2)
-  
-# Load in court sf object and structure zones 
-court <- readRDS("/Users/emmaschmidt/Desktop/Duke/Portfolio/court.rds")
 
+
+# Structure court zones
 court <- court %>%
       mutate(Zone = c("court", "three", "low box", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11,
                          12, 13, 14, 15, 17, 18, 19, 20, 16))
@@ -345,8 +359,8 @@ ui <- fluidPage(
                         selectInput(inputId = "select_box", label = "Player Selection",
                                     choices = list("Team", "#0 Celeste Taylor", "#2 Vanessa de Jesus", "#3 Ashlon Jackson",
                                                    "#4 Elizabeth Balogun", "#5 Taya Corosdale", "#11 Jordyn Oliver", 
-                                                   "#13 Lee Volker", "#21 Kennedy Brown", "#24 Reigan Richardson", 
-                                                   "#30 Shy Day-Wilson", "#42 Mia Heide")),
+                                                   "#13 Lee Volker", "#15 Emma Koable", "#21 Kennedy Brown", "#22 Shay Bollin", "#23 Imani Lewis", "#24 Reigan Richardson", 
+                                                   "#30 Shy Day-Wilson", "#32 Bo Shaffer", "#33 Jiselle Havas", "#42 Mia Heide", "#45 Emma Schmidt")),
                         imageOutput("roster")
                         
                  ),
@@ -423,8 +437,8 @@ ui <- fluidPage(
                         selectInput(inputId = "select_box2", label = "Player Selection",
                                     choices = list("Team", "#0 Celeste Taylor", "#2 Vanessa de Jesus", "#3 Ashlon Jackson",
                                                    "#4 Elizabeth Balogun", "#5 Taya Corosdale", "#11 Jordyn Oliver", 
-                                                   "#13 Lee Volker", "#21 Kennedy Brown", "#24 Reigan Richardson", 
-                                                   "#30 Shy Day-Wilson", "#42 Mia Heide")),
+                                                   "#13 Lee Volker", "#15 Emma Koable", "#21 Kennedy Brown", "#22 Shay Bollin", "#23 Imani Lewis", "#24 Reigan Richardson", 
+                                                   "#30 Shy Day-Wilson", "#32 Bo Shaffer", "#33 Jiselle Havas", "#42 Mia Heide", "#45 Emma Schmidt")),
                         imageOutput("roster2")
                         
                  ),
@@ -456,7 +470,7 @@ ui <- fluidPage(
                                     choices = list("1-NC A&T", "2-Charleston So", "3-Davidson", "4-Texas A&M",
                                                    "5-Toledo", "6-UConn", "7-Oregon St", 
                                                    "8-Northwestern", "9-Richmond", "10-Austin Peay", 
-                                                   "11-FGCU", "12-Virginia", "13-NC State", "14-Louisville")),
+                                                   "11-FGCU", "12-Virginia", "13-NC State", "14-Louisville", "15-Wake Forest")),
                         imageOutput("opps")
                         
                  ),
