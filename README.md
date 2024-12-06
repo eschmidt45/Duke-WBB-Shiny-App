@@ -40,3 +40,11 @@ The game trends tab breaks down the offensive performance of the team over the c
 
 
 <img width="1278" alt="Screen Shot 2023-05-03 at 11 40 44 PM" src="https://user-images.githubusercontent.com/88643459/236110083-0df9a143-10b5-4c6e-8268-e66cc7b4f1f8.png">
+
+
+## Deployment
+Step 1: For best user experience run using RStudio. Download here: [RStudio](https://posit.co/download/rstudio-desktop/)
+
+Step 2: Fork the repository OR download the app.R file, 'Duke WBB 22-23 Off Pos Data'.xlsx file, and www folder from the repository
+
+Step 3: Run the app 
