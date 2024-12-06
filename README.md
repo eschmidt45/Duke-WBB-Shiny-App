@@ -45,6 +45,6 @@ The game trends tab breaks down the offensive performance of the team over the c
 ## Deployment
 Step 1: For best user experience run using RStudio. Download here: [RStudio](https://posit.co/download/rstudio-desktop/)
 
-Step 2: Fork the repository OR download and save into a folder the app.R file, 'Duke WBB 22-23 Off Pos Data'.xlsx file, court.rds file, and www folder from the repository
+Step 2: Download and save into a folder the app.R file, 'Duke WBB 22-23 Off Pos Data'.xlsx file, court.rds file, and www folder from the repository
 
 Step 3: Run the app 
